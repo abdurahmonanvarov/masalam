@@ -58,17 +58,17 @@ abstract class LibraryItem {
     this.isBorrowed = false;
   }
 
-  borrow(): void {
+  borrow() {
     if (this.isBorrowed) {
-      throw new Error(`'${this.title}' allaqachon qarzga olingan.`);
+      throw new Error(`'${this.title}' sizda oldin qarzga olingan.`);
     }
     this.isBorrowed = true;
-    console.log(`'${this.title}' muvaffaqiyatli qarzga olindi.`);
+    console.log(`'${this.title}' muvaffaqiyatli qarzga qolga kiritildi.`);
   }
 
-  returnItem(): void {
+  returnItem() {
     if (!this.isBorrowed) {
-      throw new Error(`'${this.title}' allaqachon qaytarilgan.`);
+      throw new Error(`'${this.title}' qaytarib bolingan qaytarilgan.`);
     }
     this.isBorrowed = false;
     console.log(`'${this.title}' muvaffaqiyatli qaytarildi.`);
@@ -81,11 +81,11 @@ abstract class LibraryItem {
   abstract getDetails(): string;
 }
 
-// 2. Meros olish: Book, Magazine, DVD
+//Book Magazine DVD da ishanishi
 
 class Book extends LibraryItem {
-  private author: string;
-  private pages: number;
+  author: string;
+  pages: number;
 
   constructor(id: number, title: string, author: string, pages: number) {
     super(id, title);
@@ -99,8 +99,8 @@ class Book extends LibraryItem {
 }
 
 class Magazine extends LibraryItem {
-  private month: string;
-  private year: number;
+  month: string;
+  year: number;
 
   constructor(id: number, title: string, month: string, year: number) {
     super(id, title);
@@ -114,8 +114,8 @@ class Magazine extends LibraryItem {
 }
 
 class DVD extends LibraryItem {
-  private duration: number;
-  private genre: string;
+  duration: number;
+  genre: string;
 
   constructor(id: number, title: string, duration: number, genre: string) {
     super(id, title);
@@ -128,7 +128,7 @@ class DVD extends LibraryItem {
   }
 }
 
-// 3. Test qilish
+// hammasiga  malumot kiritib test qilish
 const libraryItems: LibraryItem[] = [
   new Book(1, "Sherlok Xolms", "A.K. Doyl", 250),
   new Book(2, "Alkimyogar", "P. Koelyo", 198),
@@ -145,29 +145,29 @@ const libraryItems: LibraryItem[] = [
   new Book(13, "Hayot yo‘li", "A.Qodiriy", 210),
 ];
 
-// 4. Qarzga olish, qaytarish
-console.log("\n--- Qarzga olish ---");
-libraryItems[0].borrow();
-libraryItems[3].borrow();
-libraryItems[6].borrow();
+// ularni conlola chiqarish
+console.log(libraryItems[0].borrow());
+console.log(libraryItems[3].borrow());
+console.log(libraryItems[6].borrow());
 
-console.log("\n--- Qaytarish ---");
-libraryItems[0].returnItem();
-libraryItems[3].returnItem();
-libraryItems[6].returnItem();
+console.log(libraryItems[0].returnItem());
+console.log(libraryItems[3].returnItem());
+console.log(libraryItems[6].returnItem());
 
-console.log("\n--- Yana qarzga olish ---");
-libraryItems[0].borrow();
-libraryItems[3].borrow();
+console.log(libraryItems[0].borrow());
+console.log(libraryItems[3].borrow());
 
-console.log("\n--- Qarz holatini tekshirish ---");
-libraryItems.forEach((item) => {
-  console.log(
-    `${item.title}: ${item.isBorrowedStatus() ? "qarzga olingan" : "mavjud"}`
-  );
-});
+//Kitoblar kutubxona tizmi
+console.log(
+  libraryItems.forEach((item) => {
+    console.log(
+      `${item.title}: ${item.isBorrowedStatus() ? "qarzga olingan" : "mavjud"}`
+    );
+  })
+);
 
-console.log("\n--- Elementlar haqida ma'lumotlar ---");
-libraryItems.forEach((item) => {
-  console.log(item.getDetails());
-});
+console.log(
+  libraryItems.forEach((item) => {
+    console.log(item.getDetails());
+  })
+);
